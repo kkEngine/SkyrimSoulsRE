@@ -1,12 +1,9 @@
-# SkyrimSoulsRE
-Head to the [releases tab](https://github.com/Vermunds/SkyrimSoulsRE/releases) to download the mod.
+# SkyrimSoulsRE (origin author)
+Head to the [releases tab](https://github.com/Vermunds/SkyrimSoulsRE/releases) to download the mod (dll).
 Also available on [Nexus mods](https://www.nexusmods.com/skyrimspecialedition/mods/27859).
 
-To build the mod I recommend using my wrapper project found [here](https://github.com/Vermunds/SkyrimSE-Mods).
-
 ## Build Dependencies
-* [CommonLibSSE](https://github.com/SniffleMan/CommonLibSSE)
-* [Simpleini](https://github.com/brofield/simpleini)
+* [CommonLibSSE-NG](https://github.com/kkEngine/CommonLibSSE-NG)
 
 ## End User Dependencies
 * [SKSE64](https://skse.silverlock.org/)
