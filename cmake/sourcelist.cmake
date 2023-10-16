@@ -7,7 +7,6 @@ set(SOURCES
 	include/Controls/MapInputHandlerEx.h
 	include/Controls/MenuControlsEx.h
 	include/Controls/PlayerControlsEx.h
-	include/EngineFixesChecker.h
 	include/ItemMenuUpdater.h
 	include/Menus/BarterMenuEx.h
 	include/Menus/BookMenuEx.h
@@ -76,5 +75,4 @@ set(SOURCES
 	src/SkyrimSoulsRE.cpp
 	src/SlowMotionHandler.cpp
 	src/UnpausedTaskQueue.cpp
-	src/main.cpp
 )

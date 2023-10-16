@@ -52,10 +52,10 @@ if (MSVC)
 	endif ()
 endif ()
 
-# Create DLL
+# Create static lib
 add_library(
 	${PROJECT_NAME}
-	SHARED
+	STATIC
 	${SOURCES}
 	${CMAKE_CURRENT_BINARY_DIR}/include/Version.h
 	${CMAKE_CURRENT_BINARY_DIR}/version.rc
@@ -73,6 +73,8 @@ target_compile_features(
 # Include directories
 target_include_directories(
 	${PROJECT_NAME}
+	PUBLIC
+		${CMAKE_CURRENT_SOURCE_DIR}/..
 	PRIVATE
 		${CMAKE_CURRENT_BINARY_DIR}/include
 		${CMAKE_CURRENT_SOURCE_DIR}/src
@@ -171,29 +173,3 @@ target_compile_definitions(
 		_WIN32_WINNT=0x0601
 		"$<$<BOOL:${SKSE_SUPPORT_XBYAK}>:SKSE_SUPPORT_XBYAK=1>"
 )
-
-# Function to copy build artifacts to the specified path
-function(copy_build_artifacts TARGET_NAME)
-    if (DEFINED SKYRIM_DATA_PATH)
-        set(INSTALL_PATH "${SKYRIM_DATA_PATH}/SKSE/Plugins")
-    elseif (DEFINED MO_MODS_FOLDER_PATH)
-        set(INSTALL_PATH "${MO_MODS_FOLDER_PATH}/${TARGET_NAME}/SKSE/Plugins")
-    else ()
-        message(STATUS "No install path specified for mod ${TARGET_NAME}. Skipping post-build copy command.")
-        return()
-    endif()
-
-	# Create the directories if they don't exist
-    file(MAKE_DIRECTORY ${INSTALL_PATH})
-
-    message(STATUS "Using install path for ${TARGET_NAME}: ${INSTALL_PATH}")
-    add_custom_command(
-        TARGET ${TARGET_NAME}
-        POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:${TARGET_NAME}> ${INSTALL_PATH}
-        COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_PDB_FILE:${TARGET_NAME}> ${INSTALL_PATH}
-    )
-endfunction()
-
-# Post build command
-copy_build_artifacts(${PROJECT_NAME})

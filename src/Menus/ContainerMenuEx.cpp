@@ -46,8 +46,8 @@ namespace SkyrimSoulsRE
 		std::uint32_t stealValue = targetActor->GetStealValue(a_itemData->objDesc, count, true);
 
 		bool isDetected = targetActor->RequestDetectionLevel(player, RE::DETECTION_PRIORITY::kNormal) > 0;
-		float playerSkill = player->GetActorValue(RE::ActorValue::kPickpocket);
-		float targetSkill = targetActor->GetActorValue(RE::ActorValue::kPickpocket);
+		float playerSkill = player->AsActorValueOwner()->GetActorValue(RE::ActorValue::kPickpocket);
+		float targetSkill = targetActor->AsActorValueOwner()->GetActorValue(RE::ActorValue::kPickpocket);
 
 		auto chance = RE::AIFormulas::ComputePickpocketSuccess(playerSkill, targetSkill, stealValue, itemWeight, player, targetActor, isDetected, a_itemData->objDesc->object);
 

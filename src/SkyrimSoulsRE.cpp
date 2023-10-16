@@ -28,7 +28,7 @@ namespace SkyrimSoulsRE
 
 		bool isConsole = a_menuName == RE::Console::MENU_NAME;
 		bool isUnpaused = settings->unpausedMenus[a_menuName.data()];
-		bool usesOverlay = isConsole ? false : settings->overlayMenus[a_menuName.data()];
+		bool usesOverlay = isConsole || !settings->enableCombatAlertOverlayMenu ? false : settings->overlayMenus[a_menuName.data()];
 
 		if (menu->PausesGame())
 		{

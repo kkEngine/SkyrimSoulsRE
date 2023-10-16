@@ -43,6 +43,7 @@ namespace SkyrimSoulsRE
 		float sneakMeterPosY;
 
 		//Combat Alert Overlay
+		bool enableCombatAlertOverlayMenu;
 		std::map<std::string, bool> overlayMenus;
 
 		//Messages
