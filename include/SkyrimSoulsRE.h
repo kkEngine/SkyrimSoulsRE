@@ -1,15 +1,16 @@
 #pragma once
 
 #include "AudioHooks.h"
+#include "AutoCloseManager.h"
 #include "ConsoleCommandHooks.h"
 #include "ItemMenuUpdater.h"
+#include "MenuCache.h"
 #include "Offsets.h"
 #include "PapyrusHook.h"
 #include "Settings.h"
 #include "SlowMotionHandler.h"
+#include "UIBlurManagerEx.h"
 #include "UnpausedTaskQueue.h"
-
-#include "AutoCloseManager.h"
 
 #include "Menus/BarterMenuEx.h"
 #include "Menus/BookMenuEx.h"
@@ -35,6 +36,7 @@
 #include "Menus/TutorialMenuEx.h"
 #include "Menus/TweenMenuEx.h"
 
+#include "Controls/BSWin32KeyboardDeviceEx.h"
 #include "Controls/CameraMovement.h"
 #include "Controls/InputHandlerEx.h"
 #include "Controls/MapInputHandlerEx.h"

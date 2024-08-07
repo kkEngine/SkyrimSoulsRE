@@ -8,7 +8,6 @@ namespace SkyrimSoulsRE
 	public:
 		bool CanProcess_Hook(RE::InputEvent* a_event);
 
-		static void InstallHook(REL::ID a_vtbl);
 		static void InstallHook(REL::VariantID a_vtbl);
 
 		using CanProcess_t = decltype(&T::CanProcess);
@@ -27,16 +26,9 @@ namespace SkyrimSoulsRE
 	}
 
 	template <class T>
-	inline void MapInputHandlerEx<T>::InstallHook(REL::ID a_vtbl)
+	inline void MapInputHandlerEx<T>::InstallHook(REL::VariantID a_vtbl)
 	{
 		REL::Relocation<std::uintptr_t> vTable(a_vtbl);
-		_CanProcess = vTable.write_vfunc(0x1, &MapInputHandlerEx::CanProcess_Hook);
-	}
-
-	template <class T>
-	inline void MapInputHandlerEx<T>::InstallHook(REL::VariantID a_varId)
-	{
-		REL::Relocation<std::uintptr_t> vTable(a_varId);
 		_CanProcess = vTable.write_vfunc(0x1, &MapInputHandlerEx::CanProcess_Hook);
 	}
 }

@@ -2,12 +2,14 @@ set(SOURCES
 	include/AudioHooks.h
 	include/AutoCloseManager.h
 	include/ConsoleCommandHooks.h
+	include/Controls/BSWin32KeyboardDeviceEx.h
 	include/Controls/CameraMovement.h
 	include/Controls/InputHandlerEx.h
 	include/Controls/MapInputHandlerEx.h
 	include/Controls/MenuControlsEx.h
 	include/Controls/PlayerControlsEx.h
 	include/ItemMenuUpdater.h
+	include/MenuCache.h
 	include/Menus/BarterMenuEx.h
 	include/Menus/BookMenuEx.h
 	include/Menus/CombatAlertOverlayMenu.h
@@ -37,15 +39,17 @@ set(SOURCES
 	include/Settings.h
 	include/SkyrimSoulsRE.h
 	include/SlowMotionHandler.h
+	include/UIBlurManagerEx.h
 	include/UnpausedTaskQueue.h
-	include/version.h
 	src/AudioHooks.cpp
 	src/AutoCloseManager.cpp
 	src/ConsoleCommandHooks.cpp
+	src/Controls/BSWin32KeyboardDeviceEx.cpp
 	src/Controls/CameraMovement.cpp
 	src/Controls/MenuControlsEx.cpp
 	src/Controls/PlayerControlsEx.cpp
 	src/ItemMenuUpdater.cpp
+	src/MenuCache.cpp
 	src/Menus/BarterMenuEx.cpp
 	src/Menus/BookMenuEx.cpp
 	src/Menus/CombatAlertOverlayMenu.cpp
@@ -74,5 +78,6 @@ set(SOURCES
 	src/Settings.cpp
 	src/SkyrimSoulsRE.cpp
 	src/SlowMotionHandler.cpp
+	src/UIBlurManagerEx.cpp
 	src/UnpausedTaskQueue.cpp
 )

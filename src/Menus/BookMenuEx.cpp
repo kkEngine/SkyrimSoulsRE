@@ -7,6 +7,7 @@ namespace SkyrimSoulsRE
 		UnpausedTaskQueue* queue = UnpausedTaskQueue::GetSingleton();
 		queue->AddTask([a_interval, a_currentTime]() {
 			RE::UI* ui = RE::UI::GetSingleton();
+			RE::BSSpinLockGuard lk(ui->processMessagesLock);
 
 			if (ui->IsMenuOpen(RE::BookMenu::MENU_NAME))
 			{
@@ -23,6 +24,7 @@ namespace SkyrimSoulsRE
 
 		auto task = [modifiedMessage]() {
 			RE::UI* ui = RE::UI::GetSingleton();
+			RE::BSSpinLockGuard lk(ui->processMessagesLock);
 
 			if (ui->IsMenuOpen(RE::BookMenu::MENU_NAME))
 			{
@@ -79,7 +81,7 @@ namespace SkyrimSoulsRE
 				modifiedMessage->data = nullptr;
 				queue->AddTask(task);
 
-				if (this->closeMenu)
+				if (this->GetRuntimeData().closeMenu)
 				{
 					// close animation done
 					return RE::UI_MESSAGE_RESULTS::kHandled;

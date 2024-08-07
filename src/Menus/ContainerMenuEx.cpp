@@ -67,7 +67,7 @@ namespace SkyrimSoulsRE
 	{
 		if (containerRef && containerRef->formType == RE::FormType::ActorCharacter)
 		{
-			RE::ItemList::Item* item = this->itemList->GetSelectedItem();
+			RE::ItemList::Item* item = this->GetRuntimeData().itemList->GetSelectedItem();
 			if (item)
 			{
 				std::int32_t chance = CalcPickPocketChance(&item->data);
@@ -113,11 +113,12 @@ namespace SkyrimSoulsRE
 
 		auto task = [equipHand, hasCount, count]() {
 			RE::UI* ui = RE::UI::GetSingleton();
+			RE::BSSpinLockGuard lk(ui->processMessagesLock);
 
 			if (ui->IsMenuOpen(RE::ContainerMenu::MENU_NAME))
 			{
 				ContainerMenuEx* menu = static_cast<ContainerMenuEx*>(ui->GetMenu(RE::ContainerMenu::MENU_NAME).get());
-				RE::ItemList::Item* selectedItem = menu->itemList->GetSelectedItem();
+				RE::ItemList::Item* selectedItem = menu->GetRuntimeData().itemList->GetSelectedItem();
 
 				if (selectedItem)
 				{
@@ -136,12 +137,12 @@ namespace SkyrimSoulsRE
 						ContainerMenuEx::_EquipItem(args);
 					}
 
-					if (menu->GetContainerMode() == RE::ContainerMenu::ContainerMode::kSteal && menu->value != 0)
+					if (menu->GetContainerMode() == RE::ContainerMenu::ContainerMode::kSteal && menu->GetRuntimeData().value != 0)
 					{
 						if (containerRef && selectedItem && selectedItem->data.objDesc && selectedItem->data.objDesc->object && containerRef->GetOwner())
 						{
 							RE::PlayerCharacter::GetSingleton()->StealAlarm(containerRef, selectedItem->data.objDesc->object, static_cast<std::int32_t>(count), selectedItem->data.objDesc->GetValue(), containerRef->GetOwner(), true);
-							menu->value = 0;
+							menu->GetRuntimeData().value = 0;
 						}
 						else
 						{
@@ -160,6 +161,7 @@ namespace SkyrimSoulsRE
 	{
 		auto task = []() {
 			RE::UI* ui = RE::UI::GetSingleton();
+			RE::BSSpinLockGuard lk(ui->processMessagesLock);
 
 			if (ui->IsMenuOpen(RE::ContainerMenu::MENU_NAME))
 			{
@@ -181,12 +183,13 @@ namespace SkyrimSoulsRE
 
 		auto task = [count, isViewingContainer]() {
 			RE::UI* ui = RE::UI::GetSingleton();
+			RE::BSSpinLockGuard lk(ui->processMessagesLock);
 
 			if (ui->IsMenuOpen(RE::ContainerMenu::MENU_NAME))
 			{
 				ContainerMenuEx* menu = static_cast<ContainerMenuEx*>(ui->GetMenu(RE::ContainerMenu::MENU_NAME).get());
 
-				RE::ItemList::Item* selectedItem = menu->itemList->GetSelectedItem();
+				RE::ItemList::Item* selectedItem = menu->GetRuntimeData().itemList->GetSelectedItem();
 
 				if (selectedItem)
 				{
@@ -196,12 +199,12 @@ namespace SkyrimSoulsRE
 					const RE::FxDelegateArgs args(0, menu, menu->uiMovie.get(), arg, 2);
 					ContainerMenuEx::_TransferItem(args);
 
-					if (menu->GetContainerMode() == RE::ContainerMenu::ContainerMode::kSteal && menu->value != 0)
+					if (menu->GetContainerMode() == RE::ContainerMenu::ContainerMode::kSteal && menu->GetRuntimeData().value != 0)
 					{
 						if (containerRef && selectedItem && selectedItem->data.objDesc && selectedItem->data.objDesc->object && containerRef->GetOwner())
 						{
 							RE::PlayerCharacter::GetSingleton()->StealAlarm(containerRef, selectedItem->data.objDesc->object, static_cast<std::int32_t>(count), selectedItem->data.objDesc->GetValue(), containerRef->GetOwner(), true);
-							menu->value = 0;
+							menu->GetRuntimeData().value = 0;
 						}
 						else
 						{
