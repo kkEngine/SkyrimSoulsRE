@@ -16,7 +16,7 @@ namespace SkyrimSoulsRE::MenuCache
 			std::string url = a_this->GetFileURL();
 			for (char& c : url)
 			{
-				c = std::tolower(c);
+				c = static_cast<char>(std::tolower(c));
 			}
 
 			auto it = viewsCache.find(url);
